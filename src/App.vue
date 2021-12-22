@@ -1,29 +1,20 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+  <v-app>
+    <app-bar />
+    <v-container fluid>
+      <router-view />
+    </v-container>
+  </v-app>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import Vue from "vue";
+import AppBar from "@/components/app-bar.vue";
 
 export default Vue.extend({
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
+    AppBar,
+  },
 });
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
