@@ -4,7 +4,7 @@
     <v-card-title class="book__title pb-5">{{ book.title }}</v-card-title>
     <v-card-text class="book__body">
       <div class="caption">{{ book.price }}</div>
-      <v-btn text outlined small color="primary" @click="reserve">
+      <v-btn text outlined small color="primary" @click="addToCart">
         Add to cart
       </v-btn>
     </v-card-text>
@@ -15,12 +15,17 @@ import Vue from "vue";
 import { Prop } from "vue-property-decorator";
 import Component from "vue-class-component";
 import { Book } from "@/types/books";
+import { BookMutation } from "@/enums/books";
 
 @Component({
   name: "BookItem",
 })
 export default class BookItem extends Vue {
   @Prop() book!: Book;
+
+  addToCart(): void {
+    this.$store.commit(BookMutation.ADD_BOOK_TO_CART, this.book);
+  }
 }
 </script>
 <style lang="scss" scoped>

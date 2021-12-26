@@ -18,7 +18,7 @@
         color="primary"
         indeterminate
       />
-      <book-item v-for="(book, i) in books" :key="i" :book="book" />
+      <book-item v-for="(book, index) in books" :key="index" :book="book" />
     </v-row>
   </v-container>
 </template>
@@ -49,7 +49,9 @@ export default class BookList extends Vue {
   }
 
   mounted(): void {
-    this.fetchBooks();
+    if (!this.books.length) {
+      this.fetchBooks();
+    }
   }
 
   fetchBooks(): void {

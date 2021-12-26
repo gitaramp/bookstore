@@ -1,7 +1,8 @@
-export interface BookState {
+export interface RootState {
   books: Book[];
   isLoading: boolean;
   isError: boolean;
+  cart: Book[];
 }
 
 export interface Book {
