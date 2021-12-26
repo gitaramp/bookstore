@@ -1,14 +1,19 @@
 import Vue from "vue";
 import Vuex, { StoreOptions } from "vuex";
-import { RootState } from "@/types/root";
+import { BookState } from "@/types/books";
+import { mutations } from "@/store/mutations";
+import { actions } from "@/store/actions";
 
 Vue.use(Vuex);
 
-const store: StoreOptions<RootState> = {
+const store: StoreOptions<BookState> = {
   state: {
-    helloWorld: "Hello world",
+    books: [],
+    isLoading: true,
+    isError: false,
   },
-  modules: {},
+  mutations,
+  actions,
 };
 
-export default new Vuex.Store<RootState>(store);
+export default new Vuex.Store<BookState>(store);
