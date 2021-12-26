@@ -18,4 +18,11 @@ export const mutations: MutationTree<RootState> = {
   [BookMutation.REMOVE_BOOK_FROM_CART](state, payload: number) {
     state.cart = state.cart.filter((book, index) => index !== payload);
   },
+  [BookMutation.SET_DISCOUNT](state, payload: boolean) {
+    state.isDiscount = payload;
+  },
+  [BookMutation.RESET_CART](state, payload: number) {
+    state.finalPrice = payload;
+    state.cart = [];
+  },
 };

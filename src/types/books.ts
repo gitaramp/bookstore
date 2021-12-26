@@ -3,6 +3,8 @@ export interface RootState {
   isLoading: boolean;
   isError: boolean;
   cart: Book[];
+  isDiscount: boolean;
+  finalPrice: number;
 }
 
 export interface Book {

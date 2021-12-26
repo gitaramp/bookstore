@@ -21,7 +21,7 @@
         <v-list-item-content>
           <v-list-item-title>
             Summary:
-            <strong>${{ finalPrice.toFixed(2) }}</strong></v-list-item-title
+            <strong>${{ finalPrice }}</strong></v-list-item-title
           >
         </v-list-item-content>
         <v-list-item-action>
@@ -49,16 +49,10 @@ export default class ShoppingCart extends Vue {
   get books(): Book[] {
     return this.$store.state.cart;
   }
-  get finalPrice(): number {
-    return this.books.reduce(
-      (acc, curr) => acc + this.removeCurrency(curr.price),
-      0
-    );
+  get finalPrice(): string {
+    return this.$store.getters.getFinalPrice;
   }
 
-  removeCurrency(price: string): number {
-    return parseFloat(price.replace(/[$,]/g, ""));
-  }
   onRemoveItem(index: number): void {
     this.$store.commit(BookMutation.REMOVE_BOOK_FROM_CART, index);
   }

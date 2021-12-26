@@ -1,6 +1,11 @@
 <template>
   <div>
-    <v-card elevation="16" max-width="1000px" class="mx-auto pa-7">
+    <v-card
+      v-if="!showSummary"
+      elevation="16"
+      max-width="1000px"
+      class="mx-auto pa-7"
+    >
       <v-form ref="form" v-model="isFormValid" lazy-validation>
         <v-text-field
           v-model="orderData.name"
@@ -52,11 +57,18 @@
           label="E-mail"
           required
         ></v-text-field>
+        <v-text-field
+          v-model="orderData.discountCode"
+          placeholder="Discount code"
+          solo
+          label="Discount code"
+        ></v-text-field>
         <div class="d-flex justify-end">
           <v-btn color="primary" @click="makeOrder"> I ORDER AND PAY </v-btn>
         </div>
       </v-form>
     </v-card>
+    <order-summary v-else :order-data="orderData" />
 
     <v-snackbar v-model="showInvalidFormSnackbar" timeout="4000" color="red">
       The data entered is incorrect
@@ -70,21 +82,18 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-import Component from "vue-class-component";
 import { mask } from "vue-the-mask";
-
-interface OrderData {
-  name: string;
-  surname: string;
-  place: string;
-  postalCode: string;
-  phoneNumber: string;
-  email: string;
-}
+import Component from "vue-class-component";
+import { OrderData } from "@/types/order";
+import OrderSummary from "@/components/order-summary.vue";
+import { BookMutation } from "@/enums/books";
 
 @Component({
   name: "OrderForm",
   directives: { mask },
+  components: {
+    OrderSummary,
+  },
 })
 export default class OrderForm extends Vue {
   isFormValid = true;
@@ -95,6 +104,7 @@ export default class OrderForm extends Vue {
     postalCode: "",
     phoneNumber: "",
     email: "",
+    discountCode: "",
   };
   requiredFieldRule = [
     (v: string): string | boolean => !!v || "Field is required",
@@ -116,15 +126,25 @@ export default class OrderForm extends Vue {
       /.+@.+\..+/.test(v) || "E-mail must be valid",
   ];
   showInvalidFormSnackbar = false;
+  showSummary = false;
+
+  get finalPrice(): string {
+    return this.$store.getters.getFinalPrice;
+  }
 
   validateForm(): boolean {
     return (this.$refs.form as Vue & { validate: () => boolean }).validate();
   }
-  makeOrder(): void {
+  async makeOrder(): Promise<void> {
     if (!this.validateForm()) {
       this.showInvalidFormSnackbar = true;
       return;
     }
+    if (this.orderData.discountCode === process.env.VUE_APP_DISCOUNT_CODE) {
+      this.$store.commit(BookMutation.SET_DISCOUNT, true);
+    }
+    this.$store.commit(BookMutation.RESET_CART, this.finalPrice);
+    this.showSummary = true;
   }
 }
 </script>
