@@ -25,9 +25,9 @@
           >
         </v-list-item-content>
         <v-list-item-action>
-          <!-- <router-link :to="{ name: 'Home' }"> -->
-          <v-btn color="primary">NEXT</v-btn>
-          <!-- </router-link> -->
+          <router-link :to="{ name: 'Order' }">
+            <v-btn color="primary">NEXT</v-btn>
+          </router-link>
         </v-list-item-action>
       </v-list-item>
     </div>
