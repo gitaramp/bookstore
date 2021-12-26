@@ -7,17 +7,17 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
-    component: () => import("@/views/home.vue"),
+    component: () => import("./views/home.vue"),
   },
   {
     path: "/cart",
     name: "Cart",
-    component: () => import("@/views/cart.vue"),
+    component: () => import("./views/cart.vue"),
   },
   {
     path: "/order",
     name: "Order",
-    component: () => import("@/views/order.vue"),
+    component: () => import("./views/order.vue"),
   },
 ];
 

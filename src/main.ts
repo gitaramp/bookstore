@@ -1,6 +1,6 @@
 import Vue from "vue";
 import vuetify from "@/plugins/vuetify";
-import App from "@/app.vue";
+import App from "./app.vue";
 import store from "@/store";
 import router from "@/router";
 
