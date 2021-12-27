@@ -140,7 +140,7 @@ export default class OrderForm extends Vue {
       this.showInvalidFormSnackbar = true;
       return;
     }
-    if (this.orderData.discountCode === process.env.VUE_APP_DISCOUNT_CODE) {
+    if (this.orderData.discountCode === "TUTORE12") {
       this.$store.commit(BookMutation.SET_DISCOUNT, true);
     }
     this.$store.commit(BookMutation.RESET_CART, this.finalPrice);
